@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "Examensarbete-Bucketlist-App",
+    "slug": "Examensarbete-Bucketlist-App",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "Examensarbete-Bucketlist-App"
+}
