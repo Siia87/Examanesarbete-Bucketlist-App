@@ -5,7 +5,8 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 
 import Inspiration from './views/Inspiration'
 import Bucketlist from './views/Bucketlist'
-import Home from './views/Home'
+//import Home from './views/Home'
+import Start from './views/Start'
 
 
 const Tab = createMaterialBottomTabNavigator();
@@ -27,7 +28,7 @@ export default function App() {
         activeColor="#67BBC7"
         inactiveColor="#FF8E8E">
 
-        <Tab.Screen name="Home" component={Home}
+        <Tab.Screen name="Home" component={Start}
           options={{
             tabBarLabel: 'Home',
             tabBarIcon: ({ color }) => (

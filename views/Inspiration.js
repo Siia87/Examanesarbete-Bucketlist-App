@@ -47,7 +47,6 @@ activity?type=${mypick}`)).data.activity)
         color='#157185'
         title="Go"
         onPress={() => inspiration(myPicker)} />
-
     </View>
 
   )
