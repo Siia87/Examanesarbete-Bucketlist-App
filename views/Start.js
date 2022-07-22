@@ -1,40 +1,37 @@
 import React, { useState } from 'react';
 import { View, Button, StyleSheet, TextInput } from 'react-native'
+import { useForm, Controller } from 'react-hook-form'
 import Register from '../components/Register';
+import FormInput from '../components/FormInput';
 //import { Button } from 'react-native-paper';
 export default function Start() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  //const [register, setRegister] = useState(false)
-  const [registerMode, setRegisterMode] = useState(false)
 
-  function login() {
-    console.log(email, password, registerMode)
+  const { control, handleSubmit, formState: { errors } } = useForm()
+  const EmailValidation = /^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-]+(?:\. [a-zA-Z0-9-]+)*$/
+  const onLoginPressed = data => {
+    console.log(data)
+  }
 
-  }
-  const onRegister = task => {
-    if (task === '') {
-      setRegisterMode(false)
-    }
-  }
   return (
     <View style={styles.container}>
 
-      <Register show={setRegisterMode} onAdd={onRegister} />
-
       <View style={styles.inuptView}>
-        <TextInput
-          style={styles.TextInput}
+        <FormInput
+          name='Email'
           placeholder='Email'
-          onChangeText={(email) => setEmail(email)}
+          rules={{
+            required: 'Email is required', pattern: { value: EmailValidation, message: 'Email is invalid' }
+          }}
+          control={control}
         />
       </View>
       <View style={styles.inuptView}>
-        <TextInput
-          style={styles.TextInput}
+        <FormInput
+          name='password'
           placeholder='Password'
+          rules={{ required: 'Password is required' }}
           secureTextEntry={true}
-          onChangeText={(password) => setPassword(password)}
+          control={control}
         />
       </View>
       <View style={styles.button}>
@@ -42,16 +39,10 @@ export default function Start() {
           style={styles.button}
           color='#157185'
           title="Login"
-          onPress={() => login()}
+          onPress={handleSubmit(onLoginPressed)}
         />
       </View>
-      <View style={styles.button}>
-        <Button
-          color='#67BBC7'
-          title="Register"
-          onPress={() => setRegisterMode(true)}
-        />
-      </View>
+
     </View>
   )
 }
@@ -67,12 +58,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     width: '80%',
   },
-  inuptView: {
-    backgroundColor: '#67BBC7',
-    borderRadius: 30,
-    marginBottom: 20,
-    height: 30,
-    width: '70%',
-    alignItems: 'center',
-  }
+
+
 })

@@ -1,53 +1,61 @@
 import React, { useState } from 'react'
-import { Button, StyleSheet, View, TextInput, Text, Modal } from 'react-native';
+import { Button, StyleSheet, View, Text } from 'react-native';
 
 
-export default function Register(show, onRegister) {
-  const [firstname, setFirstname] = useState('')
-  const [lastname, setLastname] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+export default function Register() {
 
-  function addAccount() {
-    console.log('skapat konto')
-    set
+  const { control, handleSubmit, formState: { errors } } = useForm()
+
+  const addAccount = data => {
+    console.log(data)
   }
+
+  const EmailValidation = /^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-]+(?:\. [a-zA-Z0-9-]+)*$/
+
   return (
 
-    <Modal
-      transparent={true}
-      animationType="fade"
-      visible={show}
-    >
+    <View>
+      <View style={styles.inuptView}>
+
+      </View>
       <View style={styles.input}>
         <View style={styles.inuptView}>
-          <TextInput
-            style={styles.TextInput}
+          <FormInput
+            name='Firstname'
             placeholder='Firstname'
-            onChangeText={(firstname) => setFirstname(firstname)}
+            control={control}
+            rules={{ required: 'Firstname is required' }}
           />
+
         </View>
         <View style={styles.inuptView}>
-          <TextInput
-            style={styles.TextInput}
+          <FormInput
+            name='Lastname'
             placeholder='Lastname'
-            onChangeText={(lastname) => setLastname(lastname)}
+            control={control}
+            rules={{ required: 'Lastname is required' }}
           />
+
         </View>
         <View style={styles.inuptView}>
-          <TextInput
-            style={styles.TextInput}
+          <FormInput
+            name='Email'
             placeholder='Email'
-            onChangeText={(email) => setEmail(email)}
+            control={control}
+            rules={{
+              required: 'Email is required', pattern: { value: EmailValidation, message: 'Email is invalid' }
+            }}
           />
         </View>
         <View style={styles.inuptView}>
-          <TextInput
-            style={styles.TextInput}
+          <FormInput
+            name='Password'
             placeholder='Password'
+            control={control}
             secureTextEntry={true}
-            onChangeText={(password) => setPassword(password)}
+            rules={{ required: 'Password is required' }}
           />
+
         </View>
 
 
@@ -55,11 +63,11 @@ export default function Register(show, onRegister) {
         <Button
           color='#157185'
           title='Create account'
-          onPress={() => { addAccount(), onRegister('') }}
+          onPress={handleSubmit(addAccount)}
         />
 
       </View>
-    </Modal>
+    </View >
 
   )
 }
