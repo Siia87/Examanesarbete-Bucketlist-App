@@ -1,15 +1,26 @@
 import React, { useState } from 'react';
 import { View, Button, StyleSheet, TextInput } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
-import Register from '../components/Register';
+//import Register from '../components/Register';
 import FormInput from '../components/FormInput';
-//import { Button } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native'
 export default function Start() {
 
   const { control, handleSubmit, formState: { errors } } = useForm()
   const EmailValidation = /^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-]+(?:\. [a-zA-Z0-9-]+)*$/
+
+  const navigation = useNavigation()
+
   const onLoginPressed = data => {
     console.log(data)
+
+    navigation.navigate('Home')
+  }
+
+  const onRegisterPressed = () => {
+    console.log('register')
+
+    navigation.navigate('Register')
   }
 
   return (
@@ -25,6 +36,7 @@ export default function Start() {
           control={control}
         />
       </View>
+
       <View style={styles.inuptView}>
         <FormInput
           name='password'
@@ -34,6 +46,7 @@ export default function Start() {
           control={control}
         />
       </View>
+
       <View style={styles.button}>
         <Button
           style={styles.button}
@@ -43,7 +56,16 @@ export default function Start() {
         />
       </View>
 
-    </View>
+      <View style={styles.button}>
+        <Button
+          style={styles.button}
+          color='#157185'
+          title="Register"
+          onPress={(onRegisterPressed)}
+        />
+      </View>
+
+    </View >
   )
 }
 

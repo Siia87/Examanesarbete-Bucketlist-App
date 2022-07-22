@@ -1,13 +1,19 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Button, StyleSheet, View, Text } from 'react-native';
-
+import { useNavigation } from '@react-navigation/native'
+import { useForm, Controller } from 'react-hook-form'
 
 export default function Register() {
 
   const { control, handleSubmit, formState: { errors } } = useForm()
-
+  const navigation = useNavigation()
   const addAccount = data => {
     console.log(data)
+    navigation.navigate('Login')
+  }
+  const goBack = () => {
+    console.log('goback')
+    navigation.navigate('Login')
   }
 
   const EmailValidation = /^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-]+(?:\. [a-zA-Z0-9-]+)*$/
@@ -15,9 +21,9 @@ export default function Register() {
   return (
 
     <View>
-      <View style={styles.inuptView}>
 
-      </View>
+
+
       <View style={styles.input}>
         <View style={styles.inuptView}>
           <FormInput
@@ -64,6 +70,11 @@ export default function Register() {
           color='#157185'
           title='Create account'
           onPress={handleSubmit(addAccount)}
+        />
+        <Button
+          color='#157185'
+          title='Back'
+          onPress={handleSubmit(goBack)}
         />
 
       </View>
