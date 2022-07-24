@@ -8,7 +8,7 @@ import Inspiration from './views/Inspiration'
 import Bucketlist from './views/Bucketlist'
 import Home from './views/Home'
 import Login from './views/Login'
-import Register from './components/Register';
+import Register from './views/Register';
 
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();

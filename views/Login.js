@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
-import { View, Button, StyleSheet, TextInput } from 'react-native'
-import { useForm, Controller } from 'react-hook-form'
-//import Register from '../components/Register';
+import React from 'react';
+import { View, Button, StyleSheet } from 'react-native'
+import { useForm } from 'react-hook-form'
 import FormInput from '../components/FormInput';
 import { useNavigation } from '@react-navigation/native'
 export default function Start() {
 
   const { control, handleSubmit, formState: { errors } } = useForm()
-  const EmailValidation = /^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-]+(?:\. [a-zA-Z0-9-]+)*$/
+  const EmailValidation = /^[a-zA-Z0-9.!#$%&'*+/=? _`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
   const navigation = useNavigation()
 
@@ -78,8 +77,10 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 20,
-    width: '80%',
+    width: '70%',
   },
-
-
+  inuptView: {
+    width: '100%',
+    alignItems: 'center',
+  }
 })

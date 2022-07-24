@@ -11,7 +11,7 @@ export default function FormInput({ control, rules = {}, name, placeholder, secu
       name={name}
       rules={rules}
       render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (
-        <>
+        <View style={styles.input}>
           <View style={[styles.inuptView, { borderColor: error ? 'red' : '#67BBC7' }]}>
             <TextInput
               value={value}
@@ -21,8 +21,8 @@ export default function FormInput({ control, rules = {}, name, placeholder, secu
               secureTextEntry={secureTextEntry}
             />
           </View>
-          {error && <Text style={{ color: 'red', alignSelf: 'stretch' }}>{error.message}</Text>}
-        </>
+          {error && <Text style={{ color: 'red' }}>{error.message}</Text>}
+        </View>
       )}
     />
 
@@ -31,11 +31,18 @@ export default function FormInput({ control, rules = {}, name, placeholder, secu
 
 const styles = StyleSheet.create({
   inuptView: {
-    backgroundColor: '#67BBC7',
-    marginBottom: 20,
+    backgroundColor: '#fff',
+    marginBottom: 10,
     height: 30,
     width: '70%',
     alignItems: 'center',
-
+    borderColor: '#4E8E9C',
+    borderWidth: 1,
+  },
+  input: {
+    marginBottom: 40,
+    height: 30,
+    width: '100%',
+    alignItems: 'center',
   }
 })
