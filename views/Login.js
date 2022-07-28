@@ -3,6 +3,9 @@ import { View, Button, StyleSheet } from 'react-native'
 import { useForm } from 'react-hook-form'
 import FormInput from '../components/FormInput';
 import { useNavigation } from '@react-navigation/native'
+import axios from 'axios'
+
+
 export default function Start() {
 
   const { control, handleSubmit, formState: { errors } } = useForm()
@@ -12,8 +15,16 @@ export default function Start() {
 
   const onLoginPressed = data => {
     console.log(data)
+    axios.post('http://localhost:3000/users', { data })
+      .then(function (response) {
+        console.log(response);
 
-    navigation.navigate('Home')
+        // navigation.navigate('Home')
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
   }
 
   const onRegisterPressed = () => {
