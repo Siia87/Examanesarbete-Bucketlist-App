@@ -8,6 +8,7 @@ import axios from 'axios'
 
 export default function Start() {
 
+
   const { control, handleSubmit, formState: { errors } } = useForm()
   const EmailValidation = /^[a-zA-Z0-9.!#$%&'*+/=? _`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
@@ -18,7 +19,6 @@ export default function Start() {
     axios.post('http://localhost:3000/users', { data })
       .then(function (response) {
         console.log(response);
-
         // navigation.navigate('Home')
       })
       .catch(function (error) {
