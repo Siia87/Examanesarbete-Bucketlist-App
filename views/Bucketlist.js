@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import axios from 'axios';
+import React, { useState, useEffect } from 'react'
 import { Text, View, FlatList, TouchableOpacity, Button, StyleSheet, Alert } from 'react-native';
 import Newtask from '../components/Newtask'
 
@@ -7,10 +8,13 @@ export default function Bucketlist() {
   const [newItem, setNewItem] = useState([])
   const [addMode, setAddMode] = useState(false)
 
+
   const addTask = task => {
     if (task === '') {
       setAddMode(false)
     } else {
+
+
       setNewItem(newItem => [
         { id: Math.random().toString(), value: task },
         ...newItem,
@@ -41,6 +45,27 @@ export default function Bucketlist() {
       ]
     )
 
+  const [data, setData] = useState([]);
+
+  const getTasks = async () => {
+    const { data } = await axios.get('http://localhost:3000/tasks')
+    setData(data);
+
+    console.log('data tasks:', data)
+    /* .then(function (response) {
+       console.log(response);
+
+     })
+     .catch(function (error) {
+       console.log(error);
+     });*/
+
+  }
+
+  useEffect(() => {
+    getTasks();
+  }, []);
+
   return (
     <View style={styles.container}>
 
@@ -48,14 +73,14 @@ export default function Bucketlist() {
 
       <FlatList
         style={styles.list}
-        keyExtractor={(item) => item.id}
-        data={newItem}
-        renderItem={itemData => (
+        keyExtractor={(data) => data._id}
+        data={data}
+        renderItem={data => (
           <TouchableOpacity
-            onPress={() => alertButton(itemData.item.id)}
+            onPress={() => alertButton(data._id)}
           >
             <View style={styles.listItem}>
-              <Text >{itemData.item.value}</Text>
+              <Text >{data.title}</Text>
             </View>
           </TouchableOpacity>
         )}

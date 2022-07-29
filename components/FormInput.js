@@ -34,14 +34,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     marginBottom: 10,
     height: 30,
-    width: '70%',
+    width: '90%',
     alignItems: 'center',
     borderColor: '#4E8E9C',
     borderWidth: 1,
   },
   input: {
     marginBottom: 40,
-    height: 30,
+    height: 40,
     width: '100%',
     alignItems: 'center',
   }

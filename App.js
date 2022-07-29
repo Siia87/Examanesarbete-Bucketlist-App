@@ -26,8 +26,9 @@ export default function App() {
   return (
     <NavigationContainer theme={myTheme}>
       {!isLogedIn && <Stack.Navigator>
-        <Stack.Screen name='Login' component={Login} logedIn={isLogedIn} />
+        <Stack.Screen name='Bucketlist' component={Bucketlist} logedIn={isLogedIn} />
         <Stack.Screen name='Register' component={Register} />
+        <Stack.Screen name='Home' component={Home} />
       </Stack.Navigator>
 
       }

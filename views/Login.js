@@ -19,7 +19,7 @@ export default function Start() {
     axios.post('http://localhost:3000/users', { data })
       .then(function (response) {
         console.log(response);
-        // navigation.navigate('Home')
+        navigation.navigate('Home')
       })
       .catch(function (error) {
         console.log(error);

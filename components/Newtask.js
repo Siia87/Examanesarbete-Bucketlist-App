@@ -1,19 +1,105 @@
-import React, { useState } from 'react'
-import { Button, StyleSheet, View, TextInput, Text, Modal, TouchableOpacity } from 'react-native';
+import React from 'react'
+import { Button, StyleSheet, View, Modal } from 'react-native';
+import { useForm } from 'react-hook-form'
+import FormInput from '../components/FormInput';
+import axios from 'axios'
+
 
 
 export default function NewTask({ onAdd, show }) {
 
-  const [myTask, setMyTask] = useState('')
-
-  const inputHandler = text => {
-    setMyTask(text);
+  const { control, handleSubmit, formState: { errors } } = useForm()
+  function goBack() {
+    show(false)
   }
-  function resetText() {
-    setMyTask('')
+
+  const addTask = data => {
+
+    console.log(data)
+
+    axios.post('http://localhost:3000/tasks', {
+      userId: "1",
+      title: data.Title,
+      desctiption: data.Description,
+      priority: data.Priority,
+
+    })
+      .then(function (response) {
+        console.log(response);
+        navigation.navigate('Login')
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
   }
 
   return (
+    <Modal
+      transparent={true}
+      animationType="fade"
+      visible={show}
+    >
+
+      <View style={styles.input}>
+        <View style={styles.inuptView}>
+          <FormInput
+            name='Title'
+            placeholder='Title'
+            control={control}
+            rules={{ required: 'Title is required' }}
+          />
+
+        </View>
+        <View style={styles.inuptView}>
+          <FormInput
+            name='Description'
+            placeholder='Description'
+            control={control}
+            rules={{ required: 'Description is required' }}
+          />
+
+        </View>
+        <View style={styles.inuptView}>
+          <FormInput
+            name='Priority'
+            placeholder='Priority'
+            control={control}
+            rules={{
+              required: 'Priority is required'
+            }}
+          />
+        </View>
+        { /*  <View style={styles.inuptView}>
+          <FormInput
+            name='Done'
+            placeholder='Done'
+            control={control}
+
+          /> 
+
+      </View>*/}
+
+
+        <View style={styles.button}>
+          <Button
+            color='#157185'
+            title='Add to bucketlist'
+            onPress={handleSubmit(addTask)}
+          />
+        </View>
+        <View style={styles.button}>
+          <Button
+            color='#157185'
+            title='Back'
+            onPress={(goBack)}
+          />
+        </View>
+      </View>
+    </Modal>
+
+  )
+  {/* return (
     <Modal
       transparent={true}
       animationType="fade"
@@ -42,7 +128,8 @@ export default function NewTask({ onAdd, show }) {
       </View>
 
     </Modal>
-  )
+ ) */}
+
 }
 
 const styles = StyleSheet.create({
@@ -53,7 +140,7 @@ const styles = StyleSheet.create({
     height: 60,
     justifyContent: 'center',
     padding: 15,
-    width: 60,
+    width: '70%',
     margin: 80,
   },
   textBtn: {
@@ -71,5 +158,12 @@ const styles = StyleSheet.create({
     shadowColor: "black",
     shadowOpacity: 0.25,
     shadowRadius: 10,
-  }
+  },
+  inuptView: {
+    width: '100%',
+    alignItems: 'center',
+  }, button: {
+    //marginTop: 20,
+    width: '80%',
+  },
 })
