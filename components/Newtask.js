@@ -10,14 +10,14 @@ export default function NewTask({ onAdd, show }) {
 
   const { control, handleSubmit, formState: { errors } } = useForm()
   function goBack() {
-    show(false)
+    show()
   }
 
   const addTask = data => {
 
     console.log(data)
 
-    axios.post('http://localhost:3000/tasks', {
+    axios.post('http://10.0.2.2:3000/tasks', {
       userId: "1",
       title: data.Title,
       desctiption: data.Description,
@@ -70,15 +70,6 @@ export default function NewTask({ onAdd, show }) {
             }}
           />
         </View>
-        { /*  <View style={styles.inuptView}>
-          <FormInput
-            name='Done'
-            placeholder='Done'
-            control={control}
-
-          /> 
-
-      </View>*/}
 
 
         <View style={styles.button}>

@@ -29,6 +29,7 @@ export default function Bucketlist() {
     })
   }
   const alertButton = taskId =>
+
     Alert.alert(
       "Delete",
       "Do you want to delete this item?",
@@ -45,21 +46,18 @@ export default function Bucketlist() {
       ]
     )
 
-  const [data, setData] = useState([]);
+  const [Data, setData] = useState([]);
 
   const getTasks = async () => {
-    const { data } = await axios.get('http://localhost:3000/tasks')
-    setData(data);
+    try {
+      const { data } = await axios.get('http://localhost:3000/tasks')
 
-    console.log('data tasks:', data)
-    /* .then(function (response) {
-       console.log(response);
-
-     })
-     .catch(function (error) {
-       console.log(error);
-     });*/
-
+      setData(data);
+      console.log('data tasks:', data)
+    }
+    catch (error) {
+      console.error(error);
+    }
   }
 
   useEffect(() => {
@@ -67,24 +65,26 @@ export default function Bucketlist() {
   }, []);
 
   return (
+
     <View style={styles.container}>
 
       <Newtask show={addMode} onAdd={addTask} />
-
       <FlatList
         style={styles.list}
-        keyExtractor={(data) => data._id}
-        data={data}
-        renderItem={data => (
+        keyExtractor={(item) => item._id}
+        data={Data}
+        renderItem={itemData => (
           <TouchableOpacity
-            onPress={() => alertButton(data._id)}
+            onPress={() => alertButton(itemData.item._id)}
           >
             <View style={styles.listItem}>
-              <Text >{data.title}</Text>
+              <Text style={styles.textTitle}>{itemData.item.title}</Text>
+              <Text >{itemData.item.desctiption}</Text>
             </View>
           </TouchableOpacity>
         )}
       />
+
       <View style={styles.button}>
         <Button
           color='#157185'
@@ -117,6 +117,18 @@ const styles = StyleSheet.create({
     padding: 5,
     margin: 5,
     width: 200,
-  }
+  },
+  textTitle: {
+    fontWeight: "bold",
+  },
+  touchableOpacity: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 30,
+    height: 25,
+    zIndex: 1,
+    position: 'absolute',
+    left: 5
+  },
 })
 

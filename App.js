@@ -21,12 +21,18 @@ const myTheme = {
 }
 
 
+
 export default function App() {
   const [isLogedIn, setIsLogedIn] = useState(false)
+
   return (
     <NavigationContainer theme={myTheme}>
       {!isLogedIn && <Stack.Navigator>
-        <Stack.Screen name='Bucketlist' component={Bucketlist} logedIn={isLogedIn} />
+
+        <Stack.Screen name="Login">
+          {(props) => <Login {...props} setIsLogedIn={setIsLogedIn} />}
+        </Stack.Screen>
+
         <Stack.Screen name='Register' component={Register} />
         <Stack.Screen name='Home' component={Home} />
       </Stack.Navigator>

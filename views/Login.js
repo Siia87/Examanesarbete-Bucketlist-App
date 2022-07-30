@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 import axios from 'axios'
 
 
-export default function Start() {
+export default function Login({ setIsLogedIn }) {
 
 
   const { control, handleSubmit, formState: { errors } } = useForm()
@@ -16,10 +16,12 @@ export default function Start() {
 
   const onLoginPressed = data => {
     console.log(data)
-    axios.post('http://localhost:3000/users', { data })
+    axios.post('http://localhost:3000/login', { data })
       .then(function (response) {
+        console.log('loggar in')
         console.log(response);
-        navigation.navigate('Home')
+        setIsLogedIn(true)
+
       })
       .catch(function (error) {
         console.log(error);
@@ -38,7 +40,7 @@ export default function Start() {
 
       <View style={styles.inuptView}>
         <FormInput
-          name='Email'
+          name='email'
           placeholder='Email'
           rules={{
             required: 'Email is required', pattern: { value: EmailValidation, message: 'Email is invalid' }
