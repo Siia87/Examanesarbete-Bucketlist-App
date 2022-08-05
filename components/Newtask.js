@@ -6,19 +6,19 @@ import axios from 'axios'
 
 
 
-export default function NewTask({ onAdd, show }) {
+export default function NewTask({ setAddMode, userId }) {
 
   const { control, handleSubmit, formState: { errors } } = useForm()
   function goBack() {
-    show()
+    setAddMode(false)
   }
 
+
   const addTask = data => {
-
-    console.log(data)
-
-    axios.post('http://10.0.2.2:3000/tasks', {
-      userId: "1",
+    console.log('task data: ', data)
+    console.log('userid: ', userId)
+    axios.post('http://localhost:3000/tasks', {
+      userId: userId,
       title: data.Title,
       desctiption: data.Description,
       priority: data.Priority,
@@ -26,7 +26,7 @@ export default function NewTask({ onAdd, show }) {
     })
       .then(function (response) {
         console.log(response);
-        navigation.navigate('Login')
+        setAddMode(false)
       })
       .catch(function (error) {
         console.log(error);
@@ -38,7 +38,7 @@ export default function NewTask({ onAdd, show }) {
     <Modal
       transparent={true}
       animationType="fade"
-      visible={show}
+      visible={setAddMode}
     >
 
       <View style={styles.input}>

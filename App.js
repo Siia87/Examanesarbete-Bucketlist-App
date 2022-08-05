@@ -24,13 +24,13 @@ const myTheme = {
 
 export default function App() {
   const [isLogedIn, setIsLogedIn] = useState(false)
-
+  const [userId, setUserId] = useState('')
   return (
     <NavigationContainer theme={myTheme}>
       {!isLogedIn && <Stack.Navigator>
 
         <Stack.Screen name="Login">
-          {(props) => <Login {...props} setIsLogedIn={setIsLogedIn} />}
+          {() => <Login setIsLogedIn={setIsLogedIn} setUserId={setUserId} />}
         </Stack.Screen>
 
         <Stack.Screen name='Register' component={Register} />
@@ -50,7 +50,8 @@ export default function App() {
             ),
           }}
         />
-        <Tab.Screen name="My Bucketlist" component={Bucketlist}
+        <Tab.Screen name="My Bucketlist"
+          children={() => <Bucketlist userId={userId} />}
           options={{
             tabBarLabel: 'My list',
             tabBarIcon: ({ color }) => (

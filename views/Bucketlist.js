@@ -4,24 +4,10 @@ import { Text, View, FlatList, TouchableOpacity, Button, StyleSheet, Alert } fro
 import Newtask from '../components/Newtask'
 
 
-export default function Bucketlist() {
+export default function Bucketlist({ userId }) {
   const [newItem, setNewItem] = useState([])
   const [addMode, setAddMode] = useState(false)
 
-
-  const addTask = task => {
-    if (task === '') {
-      setAddMode(false)
-    } else {
-
-
-      setNewItem(newItem => [
-        { id: Math.random().toString(), value: task },
-        ...newItem,
-      ])
-      setAddMode(false)
-    }
-  }
 
   const removeTask = taskId => {
     setNewItem(newItem => {
@@ -68,7 +54,7 @@ export default function Bucketlist() {
 
     <View style={styles.container}>
 
-      <Newtask show={addMode} onAdd={addTask} />
+      <Newtask setAddMode={setAddMode} userId={userId} />
       <FlatList
         style={styles.list}
         keyExtractor={(item) => item._id}

@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 import axios from 'axios'
 
 
-export default function Login({ setIsLogedIn }) {
+export default function Login({ setIsLogedIn, setUserId }) {
 
 
   const { control, handleSubmit, formState: { errors } } = useForm()
@@ -18,10 +18,8 @@ export default function Login({ setIsLogedIn }) {
     console.log(data)
     axios.post('http://localhost:3000/login', { data })
       .then(function (response) {
-        console.log('loggar in')
-        console.log(response);
+        setUserId(response.data._id)
         setIsLogedIn(true)
-
       })
       .catch(function (error) {
         console.log(error);
@@ -30,8 +28,6 @@ export default function Login({ setIsLogedIn }) {
   }
 
   const onRegisterPressed = () => {
-    console.log('register')
-
     navigation.navigate('Register')
   }
 

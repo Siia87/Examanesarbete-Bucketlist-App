@@ -12,7 +12,7 @@ export default function Register() {
   const addAccount = data => {
 
     console.log(data)
-    console.log(data.Firstname)
+
     axios.post('http://localhost:3000/users', {
       firstname: data.Firstname,
       lastname: data.Lastname,
